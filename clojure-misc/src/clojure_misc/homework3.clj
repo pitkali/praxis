@@ -27,11 +27,12 @@
   [n]
   (let [numbers (range 2 (inc n))
         tens (math/floor (/ n 10))
-        even (filter even? numbers)
+        even (->> numbers (filter even?) (count))
         fives (->> numbers
                    (filter #(divides? 5 %))
-                   (remove #(divides? 10 %)))]
-    (+ tens (min (count even) (count fives)))))
+                   (remove #(divides? 10 %))
+                   (count))]
+    (+ tens (min even fives))))
 
 (defn factorial [n]
   (reduce * (range 2 (inc n))))
